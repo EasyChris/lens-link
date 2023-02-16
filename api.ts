@@ -80,6 +80,7 @@ query Profile($handle: Handle!) {
       totalFollowers
       totalFollowing
       totalPosts
+      totalComments
     }
   }
 }
