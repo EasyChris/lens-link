@@ -1,6 +1,7 @@
 import { ApolloClient, InMemoryCache, gql } from '@apollo/client'
 
 const API_URL = 'https://api.lens.dev'
+// const API_URL = 'https://api-mumbai.lens.dev'
 
 /* create the API client */
 export const client = new ApolloClient({
@@ -32,12 +33,40 @@ query ExploreProfiles {
 }
 `
 
+// export const getProfile = gql`
+// query Profile($handle: Handle!) {
+//   profile(request: { handle: $handle }) {
+//     id
+//     name
+//     bio
+//     picture {
+//       ... on MediaSet {
+//         original {
+//           url
+//         }
+//       }
+//     }
+//     handle
+//   }
+// }
+// `
+
+
 export const getProfile = gql`
 query Profile($handle: Handle!) {
   profile(request: { handle: $handle }) {
     id
     name
     bio
+    metadata
+    handle
+    coverPicture {
+      ... on MediaSet{
+        original{
+          url
+        }
+      }
+    }
     picture {
       ... on MediaSet {
         original {
@@ -46,9 +75,16 @@ query Profile($handle: Handle!) {
       }
     }
     handle
+    stats{
+      id
+      totalFollowers
+      totalFollowing
+      totalPosts
+    }
   }
 }
 `
+
 
 export const getPublications = gql`
   query Publications($id: ProfileId!, $limit: LimitScalar) {
