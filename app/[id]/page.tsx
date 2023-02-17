@@ -9,6 +9,17 @@ import { RiCameraLensFill } from 'react-icons/ri'
 import { FcApproval, } from "react-icons/fc";
 import { IoMdPeople } from "react-icons/io"
 import { AiOutlineUsergroupAdd, AiOutlineFileText, AiOutlineComment } from 'react-icons/ai'
+import './styles.css';
+
+const gradients = [
+  'linear-gradient(to bottom right, #8E2DE2, #4A00E0)',
+  'linear-gradient(to bottom right, #fa709a, #fee140)',
+  'linear-gradient(to bottom right, #4b6cb7, #182848)',
+  'linear-gradient(to bottom right, #b92b27, #1565c0)',
+  // add more gradients here
+];
+
+
 
 export default function Profile() {
   /* create initial state to hold user profile and array of publications */
@@ -17,6 +28,8 @@ export default function Profile() {
   /* using the router we can get the lens handle from the route path */
   const pathName = usePathname()
   const handle = pathName?.split('/')[1]
+  const [selectedGradient, setSelectedGradient] = useState(gradients[Math.floor(Math.random() * gradients.length)]);
+
 
   useEffect(() => {
     if (handle) {
@@ -128,7 +141,13 @@ export default function Profile() {
 
   if (!profile) return null
   return (
-    <div className="App" style={{ backgroundImage: `url(${profile.coverPictureUrl})` }}>
+    <div className="App" style={{ backgroundImage: selectedGradient }}>
+      <div className="gradients-selector">
+        <div className="gradient-1" onClick={() => setSelectedGradient('linear-gradient(to bottom right, #8E2DE2, #4A00E0)')}></div>
+        <div className="gradient-2" onClick={() => setSelectedGradient('linear-gradient(to bottom right, #fa709a, #fee140)')}></div>
+        <div className="gradient-3" onClick={() => setSelectedGradient('linear-gradient(to bottom right, #2c3e50, #bdc3c7)')}></div>
+      </div>
+
       <div className="flex justify-center items-center h-screen">
         <div className="bg-white rounded-lg shadow-lg p-8 max-w-sm w-full">
           <div className="flex items-center mb-6">

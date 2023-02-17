@@ -1,0 +1,27 @@
+.gradients-selector {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  display: flex;
+  align-items: center;
+}
+
+.gradients-selector div {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  margin-left: 10px;
+  cursor: pointer;
+}
+
+.gradient-1 {
+  background: linear-gradient(to bottom right, #8E2DE2, #4A00E0);
+}
+
+.gradient-2 {
+  background: linear-gradient(to bottom right, #fa709a, #fee140);
+}
+
+.gradient-3 {
+  background: linear-gradient(to bottom right, #4b6cb7, #182848);
+}
