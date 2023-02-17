@@ -17,7 +17,7 @@ import "./styles.css";
 export default function Home() {
   const [profiles, setProfiles] = useState<any>([]);
 
-  const [username, setUsername] = useState('Login');
+  const [user, setUser] = useState({name:'Login'});
 
   const gradients = [
     "linear-gradient(to bottom right, #fa709a, #fee140)",
@@ -32,14 +32,15 @@ export default function Home() {
   );
 
   useEffect(() => {
-    if(process.browser){
+    if (process.browser) {
       let user = window.sessionStorage.getItem("user");
       if (user) {
-        user = JSON.parse(user);  
-        setUsername(user.name);
+        user = JSON.parse(user);
+        console.log(user)
+        setUser(user);
       }
     }
-    
+
 
 
     fetchProfiles();
@@ -124,7 +125,7 @@ export default function Home() {
       "user",
       JSON.stringify(defaultProfile.data.defaultProfile)
     );
-    setUsername(defaultProfile.data.defaultProfile.name);
+    setUser(defaultProfile.data.defaultProfile.name);
   }
   async function followed(profile: any, index: number) {
     console.log("followed");
@@ -157,7 +158,18 @@ export default function Home() {
     <div className="App" style={{ backgroundImage: selectedGradient }}>
       <header className='text-xl font-bold text-center mb-10 bg-white text-white flex justify-between items-center py-3 px-6 shadow-lg'>
         <div className='text-black'>LENSLINK</div>
-        <button className='bg-gradient-to-r from-gray-800 to-black text-white text-sm px-4 py-2 rounded-md' onClick={login}>{username}</button>
+        {user.name === "Login" ? (
+          <button className='bg-gradient-to-r from-gray-800 to-black text-white text-sm px-4 py-2 rounded-md' onClick={login}>
+            {user.nane || 'Login'}
+          </button>
+        ) : (
+          <Link href={`/${user.handle}`}>
+          <button className='bg-gradient-to-r from-gray-800 to-black text-white text-sm px-4 py-2 rounded-md'>
+            {user.name}
+          </button>
+          </Link>
+        )}
+
       </header>
 
       <div className="pt- max-w-screen-md mx-auto">
