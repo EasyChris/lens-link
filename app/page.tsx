@@ -4,6 +4,8 @@
 import { useEffect, useState } from 'react'
 import { client, exploreProfiles } from '../api'
 import Link from 'next/link'
+import { FaUsers } from 'react-icons/fa';
+import './styles.css';
 
 export default function Home() {
   const [profiles, setProfiles] = useState<any>([])
@@ -40,25 +42,28 @@ export default function Home() {
 
   return (
     <div className='pt-20 max-w-screen-md mx-auto'>
+      <header className='text-3xl font-bold text-center mb-10'>LINK MORE LENSER</header>
       <div className='pt-20 container mx-auto'>
-        <div className='flex flex-wrap justify-center'>
+        <div className='grid grid-cols-1 md:grid-cols-2 gap-8'>
           {profiles.map((profile, index) => (
-            <div key={profile.id} className={`w-full md:w-1/2 shadow-md p-6 rounded-lg mb-8 flex flex-col items-center ${index % 2 === 0 ? "md:pr-4" : "md:pl-4"}`}>
-              <img className='w-48 h-48 rounded-full' src={profile.avatarUrl || 'https://picsum.photos/200'} />
-              <p className='text-xl text-center mt-6'>{profile.name}</p>
-              <p className='text-base text-gray-400 text-center mt-2'>{profile.bio}</p>
-
-              <Link href={`/${profile.handle}`}>
-                <p className='cursor-pointer text-violet-600 text-lg font-medium text-center mt-2 mb-2'>{profile.handle}</p>
-              </Link>
-
-              <p className='text-pink-600 text-sm font-medium text-center'>{profile.stats.totalFollowers} followers</p>
-            </div>
+            <Link href={`/${profile.handle}`}>
+              <div key={profile.id} className='shadow-md p-6 rounded-lg flex flex-col items-center'>
+                <img className='w-48 h-48 rounded-full' src={profile.avatarUrl || 'https://picsum.photos/200'} />
+                <p className='text-xl text-center mt-6'>{profile.name}</p>
+                <div className='h-16'>
+                  <p className='text-base text-gray-400 text-center mt-2 overflow-hidden line-clamp-2'>{profile.bio}</p>
+                </div>
+                <p className='text-pink-600 text-sm font-medium text-center mt-auto'>
+                  <FaUsers className="inline-block mr-2" />
+                  {profile.stats.totalFollowers} followers
+                </p>
+              </div>
+            </Link>
           ))}
         </div>
       </div>
-
     </div>
+
 
   )
 }
