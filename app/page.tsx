@@ -46,7 +46,7 @@ export default function Home() {
       <div className='pt-20 container mx-auto'>
         <div className='grid grid-cols-1 md:grid-cols-2 gap-8'>
           {profiles.map((profile, index) => (
-            <Link href={`/${profile.handle}`}>
+            <Link href={`/${profile.handle}`} key={profile.id}>
               <div key={profile.id} className='shadow-md p-6 rounded-lg flex flex-col items-center'>
                 <img className='w-48 h-48 rounded-full' src={profile.avatarUrl || 'https://picsum.photos/200'} />
                 <p className='text-xl text-center mt-6'>{profile.name}</p>

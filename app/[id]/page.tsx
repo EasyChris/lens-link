@@ -5,6 +5,7 @@ import { usePathname } from 'next/navigation';
 import { client, getPublications, getProfile } from '../../api'
 import Avatar from './avatar';
 import { FaGithub, FaTwitter, FaBlog } from "react-icons/fa";
+import { RiCameraLensFill } from 'react-icons/ri'
 import { FcApproval, } from "react-icons/fc";
 import { IoMdPeople } from "react-icons/io"
 import { AiOutlineUsergroupAdd, AiOutlineFileText, AiOutlineComment } from 'react-icons/ai'
@@ -16,7 +17,6 @@ export default function Profile() {
   /* using the router we can get the lens handle from the route path */
   const pathName = usePathname()
   const handle = pathName?.split('/')[1]
-  console.log('handle', handle)
 
   useEffect(() => {
     if (handle) {
@@ -51,6 +51,57 @@ export default function Profile() {
           profileData.coverPictureUrl = profileData.coverPicture.original.url
         }
       }
+      let showKeys = [
+        {
+          name: 'app',
+          app: 'Lenster',
+          link: 'https://lenster.xyz/u/',
+          icon: 'RiCameraLensFill',
+        },
+        {
+          name: 'twitter',
+          app: 'Twitter',
+          link: 'https://twitter.com/',
+          icon: 'FaTwitter',
+        },
+        {
+          name: 'website',
+          app: 'Website',
+          link: '',
+          icon: 'FaBlog',
+        }
+      ]
+      const metaUrl = profileData.metadata
+      // axios call to get the metadata
+      if (metaUrl) {
+        const response = await fetch(metaUrl)
+        const data = await response.json()
+        console.log(data)
+        let attributes: any = data.attributes
+        //get all attributes  filter value is [] or ''
+        let attributesFilter = attributes.filter((attribute: any) => attribute.value !== '' && attribute.value !== '[]')
+        // filter out the keys that are not in the showKeys if in the showKeys then add the link
+        let attributesFilterL2 = attributesFilter.map((attribute: any) => {
+          let key = attribute.key
+          let value = attribute.value
+          let showKey = showKeys.find((showKey: any) => showKey.name === key)
+          if (showKey) {
+            attribute.link = `${showKey.link}${value}`
+            if (attribute.key === 'app') {
+              attribute.link = `${showKey.link}${handle}`
+            }
+            attribute.icon = showKey.icon
+          }
+          return attribute
+        })
+        // filter attributesFilterL2 if icon key is not exist
+        let attributesFilterL3 = attributesFilterL2.filter((attribute: any) => attribute.icon)
+        profileData.attributes = attributesFilterL3
+      }
+
+      console.log(profileData.attributes)
+
+
 
       const stats = profileData.stats
       if (stats) {
@@ -76,7 +127,6 @@ export default function Profile() {
   }
 
   if (!profile) return null
-  console.log(profile.coverPictureUrl)
   return (
     <div className="App" style={{ backgroundImage: `url(${profile.coverPictureUrl})` }}>
       <div className="flex justify-center items-center h-screen">
@@ -122,40 +172,24 @@ export default function Profile() {
             {profile.bio}
           </div>
           <div className="mb-6">
-            <a
-              href="https://github.com/Easychris"
-              target="_blank"
-              rel="noreferrer"
-              className="flex items-center mb-4"
-            >
-              <div className="w-8 h-8 mr-4">
-                <FaGithub size={24} className="text-gray-500" />
-              </div>
-              <div className="font-medium">github</div>
-            </a>
-            <a
-              href="https://twitter.com/Easyplux"
-              target="_blank"
-              rel="noreferrer"
-              className="flex items-center mb-4"
-            >
-              <div className="w-8 h-8 mr-4">
-                <FaTwitter size={24} className="text-gray-500" />
-              </div>
-              <div className="font-medium">twitter</div>
-            </a>
-            <a
-              href="https://afox.cc"
-              target="_blank"
-              rel="noreferrer"
-              className="flex items-center mb-4"
-            >
-              <div className="w-8 h-8 mr-4">
-                <FaBlog size={24} className="text-gray-500" />
-              </div>
-              <div className="font-medium">blog</div>
-            </a>
+            {profile.attributes.map((attribute, index) => (
+              <a
+                key={index}
+                href={attribute.link}
+                target="_blank"
+                rel="noreferrer"
+                className="flex items-center mb-4"
+              >
+                <div className="w-8 h-8 mr-4 flex items-center justify-center">
+                  {attribute.icon === "RiCameraLensFill" && <RiCameraLensFill size={24} className="text-gray-500" />}
+                  {attribute.icon === "FaTwitter" && <FaTwitter size={24} className="text-gray-500" />}
+                  {attribute.icon === "FaBlog" && <FaBlog size={24} className="text-gray-500" />}
+                </div>
+                <div className="font-medium">{attribute.value}</div>
+              </a>
+            ))}
           </div>
+
         </div>
       </div>
     </div>
