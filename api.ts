@@ -33,14 +33,14 @@ export const client = new ApolloClient({
 
 
 const types = [
-  "CREATED_ON",
+  // "CREATED_ON",
   "MOST_FOLLOWERS",
-  "LATEST_CREATED",
-  "MOST_POSTS",
-  "MOST_COMMENTS",
-  "MOST_MIRRORS",
-  "MOST_PUBLICATION",
-  "MOST_COLLECTS",
+  // "LATEST_CREATED",
+  // "MOST_POSTS",
+  // "MOST_COMMENTS",
+  // "MOST_MIRRORS",
+  // "MOST_PUBLICATION",
+  // "MOST_COLLECTS",
 ];
 
 let randomType:any = types[Math.floor(Math.random() * types.length)];
