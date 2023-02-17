@@ -142,12 +142,13 @@ export default function Home() {
 
   return (
     <div className="App" style={{ backgroundImage: selectedGradient }}>
-      <header className='text-3xl font-bold text-center mb-10 bg-white text-white flex justify-between items-center py-3 px-6'>
-        <div className='text-white text-black'>LINKLINK</div>
+      <header className='text-3xl font-bold text-center mb-10 bg-white text-white flex justify-between items-center py-3 px-6 shadow-lg'>
+        <div className='text-black'>LENSLINK</div>
         <button className='bg-gradient-to-r from-gray-800 to-black text-white text-sm px-4 py-2 rounded-md' onClick={login}>登录</button>
       </header>
+
       <div className='pt- max-w-screen-md mx-auto'>
-        <div className='pt-5 container mx-auto'>
+        <div className='pt-20 container mx-auto'>
           <div className='grid grid-cols-1 md:grid-cols-2 gap-8'>
             {profiles.map((profile, index) => (
               <Link href={`/${profile.handle}`} key={profile.id}>
