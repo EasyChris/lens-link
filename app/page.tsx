@@ -26,11 +26,22 @@ export default function Home() {
     // add more gradients here
   ];
 
+
   const [selectedGradient, setSelectedGradient] = useState(
     gradients[Math.floor(Math.random() * gradients.length)]
   );
 
   useEffect(() => {
+    if(process.browser){
+      let user = window.sessionStorage.getItem("user");
+      if (user) {
+        user = JSON.parse(user);  
+        setUsername(user.name);
+      }
+    }
+    
+
+
     fetchProfiles();
   }, []);
 
@@ -138,10 +149,8 @@ export default function Home() {
     });
     // 更新profiles
 
-    useEffect(() => {
-      profiles[index].isFollowedByMe = true;
-      setProfiles([...profiles]);
-    }, []);
+    profiles[index].isFollowedByMe = true;
+    setProfiles([...profiles]);
   }
 
   return (
@@ -155,30 +164,30 @@ export default function Home() {
         <div className="pt-20 container mx-auto">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             {profiles.map((profile, index) => (
-                <div
-                  key={profile.id}
-                  className="shadow-md p-6 rounded-lg flex flex-col items-center"
-                  style={{ backgroundColor: "white" }}
-                >
-                  <Link href={`/${profile.handle}`} key={profile.id}>
+              <div
+                key={profile.id}
+                className="shadow-md p-6 rounded-lg flex flex-col items-center"
+                style={{ backgroundColor: "white" }}
+              >
+                <Link href={`/${profile.handle}`}>
                   <img
                     className="w-48 h-48 rounded-full"
                     src={profile.avatarUrl || "https://picsum.photos/200"}
                   />
-                  </Link>
-                  <Link href={`/${profile.handle}`} key={profile.id}>
+                </Link>
+                <Link href={`/${profile.handle}`} >
                   <p className="text-xl text-center mt-6">{profile.name}</p>
-                  </Link>
-                  <div className="h-16">
-                    <p className="text-base text-gray-400 text-center mt-2 overflow-hidden line-clamp-2">
-                      {profile.bio}
-                    </p>
-                  </div>
-                  <p className="text-pink-600 text-sm font-medium text-center mt-auto">
-                    <FaUsers className="inline-block mr-2" />
-                    {profile.stats.totalFollowers} followers
+                </Link>
+                <div className="h-16">
+                  <p className="text-base text-gray-400 text-center mt-2 overflow-hidden line-clamp-2">
+                    {profile.bio}
                   </p>
-                  <div className="pt-5">
+                </div>
+                <p className="text-pink-600 text-sm font-medium text-center mt-auto">
+                  <FaUsers className="inline-block mr-2" />
+                  {profile.stats.totalFollowers} followers
+                </p>
+                <div className="pt-5">
                   {profile.isFollowedByMe ? (
                     <p className="text-sm text-gray-400 text-center">
                       Following
@@ -192,8 +201,8 @@ export default function Home() {
                       Follow
                     </button>
                   )}
-                  </div>
                 </div>
+              </div>
             ))}
           </div>
         </div>
