@@ -1,4 +1,7 @@
 # Introduction
+
+[![GitHub license](https://img.shields.io/github/license/EasyChris/lens-link)](https://raw.githubusercontent.com/EasyChris/lens-link/main/LICENSE)
+
 LensLink.xyz is a blockchain-based social business card platform that uses the Lens protocol as a data source to showcase your social business card. By using this platform, you can create a blockchain-based social business card, allowing others to better understand you and your business.
 
 ---
