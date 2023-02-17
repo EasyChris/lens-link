@@ -17,7 +17,8 @@ import "./styles.css";
 export default function Home() {
   const [profiles, setProfiles] = useState<any>([]);
 
-  const [user, setUser] = useState({name:'Login'});
+  const [user, setUser] = useState<any>({ name: 'Login' });
+
 
   const gradients = [
     "linear-gradient(to bottom right, #fa709a, #fee140)",
@@ -160,10 +161,10 @@ export default function Home() {
         <div className='text-black'>LENSLINK</div>
         {user.name === "Login" ? (
           <button className='bg-gradient-to-r from-gray-800 to-black text-white text-sm px-4 py-2 rounded-md' onClick={login}>
-            {user.nane || 'Login'}
+            {user?.nane || 'Login'}
           </button>
         ) : (
-          <Link href={`/${user.handle}`}>
+          <Link href={`/${user?.handle}`}>
           <button className='bg-gradient-to-r from-gray-800 to-black text-white text-sm px-4 py-2 rounded-md'>
             {user.name}
           </button>
