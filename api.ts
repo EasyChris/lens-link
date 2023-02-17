@@ -31,10 +31,24 @@ export const client = new ApolloClient({
   cache: new InMemoryCache()
 })
 
+
+const types = [
+  "CREATED_ON",
+  "MOST_FOLLOWERS",
+  "LATEST_CREATED",
+  "MOST_POSTS",
+  "MOST_COMMENTS",
+  "MOST_MIRRORS",
+  "MOST_PUBLICATION",
+  "MOST_COLLECTS",
+];
+
+let randomType:any = types[Math.floor(Math.random() * types.length)];
+
 /* define a GraphQL query  */
 export const exploreProfiles = gql`
 query ExploreProfiles {
-  exploreProfiles(request: { sortCriteria: MOST_FOLLOWERS }) {
+  exploreProfiles(request: { sortCriteria: ${randomType} }) {
     items {
       id
       name

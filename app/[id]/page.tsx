@@ -92,7 +92,7 @@ export default function Profile() {
         console.log(data)
         let attributes: any = data.attributes
         //get all attributes  filter value is [] or ''
-        let attributesFilter = attributes.filter((attribute: any) => attribute.value !== '' && attribute.value !== '[]')
+        let attributesFilter = attributes.filter((attribute: any) => attribute.value !== '' && attribute.value !== '[]' && attribute.value !== null)
         // filter out the keys that are not in the showKeys if in the showKeys then add the link
         let attributesFilterL2 = attributesFilter.map((attribute: any) => {
           let key = attribute.key
@@ -192,9 +192,8 @@ export default function Profile() {
           </div>
           <div className="mb-6">
             {profile.attributes.map((attribute, index) => (
-             <div className="bg-gray-100 px-4 py-2 rounded-md mb-4 d-hover">
-             <a
-               key={index}
+             <div className="bg-gray-100 px-4 py-2 rounded-md mb-4 d-hover" key={index+attribute.key}>
+             <a 
                href={attribute.link}
                target="_blank"
                rel="noreferrer"

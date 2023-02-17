@@ -10,6 +10,7 @@ import {
   getDefaultProfile,
   follow,
 } from "../api";
+import Loading from "./loading";
 import Link from "next/link";
 import { FaUsers } from "react-icons/fa";
 import "./styles.css";
@@ -172,54 +173,60 @@ export default function Home() {
         )}
 
       </header>
-
-      <div className="pt- max-w-screen-md mx-auto">
-        <div className="pt-20 container mx-auto">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            {profiles.map((profile, index) => (
-              <div
-                key={profile.id}
-                className="shadow-md p-6 rounded-lg flex flex-col items-center"
-                style={{ backgroundColor: "white" }}
+      {profiles.length > 0 ? (
+  <div className="pt- max-w-screen-md mx-auto">
+  <div className="pt-20 container mx-auto">
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+      {profiles.map((profile, index) => (
+        <div
+          key={profile.id}
+          className="shadow-md p-6 rounded-lg flex flex-col items-center"
+          style={{ backgroundColor: "white" }}
+        >
+          <Link href={`/${profile.handle}`}>
+            <img
+              className="w-48 h-48 rounded-full"
+              src={profile.avatarUrl || "https://picsum.photos/200"}
+            />
+          </Link>
+          <Link href={`/${profile.handle}`} >
+            <p className="text-xl text-center mt-6">{profile.name}</p>
+          </Link>
+          <div className="h-16">
+            <p className="text-base text-gray-400 text-center mt-2 overflow-hidden line-clamp-2">
+              {profile.bio}
+            </p>
+          </div>
+          <p className="text-pink-600 text-sm font-medium text-center mt-auto">
+            <FaUsers className="inline-block mr-2" />
+            {profile.stats.totalFollowers} followers
+          </p>
+          <div className="pt-5">
+            {profile.isFollowedByMe ? (
+              <p className="text-sm text-gray-400 text-center">
+                Following
+              </p>
+            ) : (
+              // 点击触发followed 并传入profile 作为参数
+              <button
+                onClick={() => followed(profile, index)}
+                className="bg-violet-600 text-white text-sm font-medium px-4 py-2 rounded-full"
               >
-                <Link href={`/${profile.handle}`}>
-                  <img
-                    className="w-48 h-48 rounded-full"
-                    src={profile.avatarUrl || "https://picsum.photos/200"}
-                  />
-                </Link>
-                <Link href={`/${profile.handle}`} >
-                  <p className="text-xl text-center mt-6">{profile.name}</p>
-                </Link>
-                <div className="h-16">
-                  <p className="text-base text-gray-400 text-center mt-2 overflow-hidden line-clamp-2">
-                    {profile.bio}
-                  </p>
-                </div>
-                <p className="text-pink-600 text-sm font-medium text-center mt-auto">
-                  <FaUsers className="inline-block mr-2" />
-                  {profile.stats.totalFollowers} followers
-                </p>
-                <div className="pt-5">
-                  {profile.isFollowedByMe ? (
-                    <p className="text-sm text-gray-400 text-center">
-                      Following
-                    </p>
-                  ) : (
-                    // 点击触发followed 并传入profile 作为参数
-                    <button
-                      onClick={() => followed(profile, index)}
-                      className="bg-violet-600 text-white text-sm font-medium px-4 py-2 rounded-full"
-                    >
-                      Follow
-                    </button>
-                  )}
-                </div>
-              </div>
-            ))}
+                Follow
+              </button>
+            )}
           </div>
         </div>
-      </div>
+      ))}
+    </div>
+  </div>
+</div>
+) : (
+  <div className="text-center"><Loading /></div>
+)}
+
+
+      
     </div>
   );
 }
