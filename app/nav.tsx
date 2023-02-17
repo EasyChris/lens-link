@@ -1,8 +1,10 @@
-import { CalendarDaysIcon, HandRaisedIcon } from '@heroicons/react/24/outline'
 import { FiExternalLink } from 'react-icons/fi';
 import { FaUserFriends } from 'react-icons/fa';
+import { useEffect, useState } from "react";
+import Link from "next/link";
 
 export default function Nav() {
+  const [email, setEmail] = useState('');
   return (
     <div className="relative isolate overflow-hidden bg-white-900 py-16 sm:py-24 lg:py-32">
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
@@ -17,20 +19,24 @@ export default function Nav() {
                 Lens Handle 
               </label>
               <input
-                id="email-address"
-                name="email"
-                type="email"
-                autoComplete="email"
-                required
-                className="min-w-0 flex-auto rounded-md border border-white/10 bg-white/5 px-[calc(theme(spacing.4)-1px)] py-[calc(theme(spacing[1.5])-1px)] text-base leading-7 text-white placeholder-gray-500 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
-                placeholder="Enter your Lens handle"
-              />
+  id="email-address"
+  name="email"
+  type="email"
+  autoComplete="email"
+  required
+  className="min-w-0 flex-auto rounded-md border border-white/10 bg-white/5 px-[calc(theme(spacing.4)-1px)] py-[calc(theme(spacing[1.5])-1px)] text-base leading-7 text-white placeholder-gray-500 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+  placeholder="Enter your Lens handle"
+  value={email}
+  onChange={e => setEmail(e.target.value)}
+/>
+              <Link href={`/${email}`}>
               <button
                 type="submit"
                 className="flex-none rounded-md bg-indigo-500 py-1.5 px-3.5 text-base font-semibold leading-7 text-white shadow-sm hover:bg-indigo-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500"
               >
                 LensLink
               </button>
+              </Link>
             </div>
           </div>
           <dl className="grid grid-cols-1 gap-x-8 gap-y-10 sm:grid-cols-2 lg:pt-2">
