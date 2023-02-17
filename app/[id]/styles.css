@@ -31,3 +31,11 @@
   color: #fff;
   background-color: #eee;
 }
+
+
+.font-medium {
+  font-size: 1rem;
+white-space: nowrap;
+overflow: hidden;
+text-overflow: ellipsis;
+}

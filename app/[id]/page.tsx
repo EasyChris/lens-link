@@ -9,6 +9,7 @@ import { RiCameraLensFill } from 'react-icons/ri'
 import { FcApproval, } from "react-icons/fc";
 import { IoMdPeople } from "react-icons/io"
 import { AiOutlineUsergroupAdd, AiOutlineFileText, AiOutlineComment } from 'react-icons/ai'
+import Loading from "../loading";
 import './styles.css';
 
 const gradients = [
@@ -29,7 +30,7 @@ export default function Profile() {
   const pathName = usePathname()
   const handle = pathName?.split('/')[1]
   const [selectedGradient, setSelectedGradient] = useState(gradients[Math.floor(Math.random() * gradients.length)]);
-
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     if (handle) {
@@ -38,6 +39,7 @@ export default function Profile() {
   }, [handle])
 
   async function fetchProfile() {
+    setIsLoading(true);
     try {
       /* fetch the user profile using their handle */
       const returnedProfile = await client.query({
@@ -134,9 +136,14 @@ export default function Profile() {
         }
       })
       setPublications(pubs.data.publications.items)
+      setIsLoading(false);
     } catch (err) {
       console.log('error fetching profile...', err)
     }
+  }
+
+  if (isLoading) {
+    return <Loading />;
   }
 
   if (!profile) return null
