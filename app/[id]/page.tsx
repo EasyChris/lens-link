@@ -5,6 +5,8 @@ import { usePathname } from 'next/navigation';
 import { client, getPublications, getProfile } from '../../api'
 import Avatar from './avatar';
 import { FaGithub, FaTwitter, FaBlog } from "react-icons/fa";
+import { BiArrowBack } from 'react-icons/bi';
+import { IoMdHome } from 'react-icons/io';
 import { RiCameraLensFill } from 'react-icons/ri'
 import { FcApproval, } from "react-icons/fc";
 import { IoMdPeople } from "react-icons/io"
@@ -154,6 +156,13 @@ export default function Profile() {
         <div className="gradient-2" onClick={() => setSelectedGradient('linear-gradient(to bottom right, #fa709a, #fee140)')}></div>
         <div className="gradient-3" onClick={() => setSelectedGradient('linear-gradient(to bottom right, #2c3e50, #bdc3c7)')}></div>
       </div>
+      
+      <button
+    className="absolute top-4 left-4 bg-white rounded-full p-2"
+    onClick={() => window.location.href = '/'}
+  >
+    <IoMdHome className='text-gray-400' size={14} />
+  </button>
 
       <div className="flex justify-center items-center h-screen">
         <div className="bg-white rounded-lg shadow-lg p-8 max-w-sm w-full">
