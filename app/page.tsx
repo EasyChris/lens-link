@@ -17,6 +17,8 @@ import "./styles.css";
 export default function Home() {
   const [profiles, setProfiles] = useState<any>([]);
 
+  const [username, setUsername] = useState('Login');
+
   const gradients = [
     "linear-gradient(to bottom right, #fa709a, #fee140)",
     "linear-gradient(to bottom right, #fa709a, #fee140)",
@@ -111,6 +113,7 @@ export default function Home() {
       "user",
       JSON.stringify(defaultProfile.data.defaultProfile)
     );
+    setUsername(defaultProfile.data.defaultProfile.name);
   }
   async function followed(profile: any, index: number) {
     console.log("followed");
@@ -143,26 +146,39 @@ export default function Home() {
 
   return (
     <div className="App" style={{ backgroundImage: selectedGradient }}>
-      <header className="text-3xl font-bold text-center mb-10 bg-white text-white flex justify-between items-center py-3 px-6 shadow-lg">
-        <div className="text-black">LENSLINK</div>
-        <button
-          className="bg-gradient-to-r from-gray-800 to-black text-white text-sm px-4 py-2 rounded-md"
-          onClick={login}
-        >
-          登录
-        </button>
+      <header className='text-xl font-bold text-center mb-10 bg-white text-white flex justify-between items-center py-3 px-6 shadow-lg'>
+        <div className='text-black'>LENSLINK</div>
+        <button className='bg-gradient-to-r from-gray-800 to-black text-white text-sm px-4 py-2 rounded-md' onClick={login}>{username}</button>
       </header>
 
       <div className="pt- max-w-screen-md mx-auto">
         <div className="pt-20 container mx-auto">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             {profiles.map((profile, index) => (
-              <Link href={`/${profile.handle}`} key={profile.id}>
                 <div
                   key={profile.id}
                   className="shadow-md p-6 rounded-lg flex flex-col items-center"
                   style={{ backgroundColor: "white" }}
                 >
+                  <Link href={`/${profile.handle}`} key={profile.id}>
+                  <img
+                    className="w-48 h-48 rounded-full"
+                    src={profile.avatarUrl || "https://picsum.photos/200"}
+                  />
+                  </Link>
+                  <Link href={`/${profile.handle}`} key={profile.id}>
+                  <p className="text-xl text-center mt-6">{profile.name}</p>
+                  </Link>
+                  <div className="h-16">
+                    <p className="text-base text-gray-400 text-center mt-2 overflow-hidden line-clamp-2">
+                      {profile.bio}
+                    </p>
+                  </div>
+                  <p className="text-pink-600 text-sm font-medium text-center mt-auto">
+                    <FaUsers className="inline-block mr-2" />
+                    {profile.stats.totalFollowers} followers
+                  </p>
+                  <div className="pt-5">
                   {profile.isFollowedByMe ? (
                     <p className="text-sm text-gray-400 text-center">
                       Following
@@ -176,22 +192,8 @@ export default function Home() {
                       Follow
                     </button>
                   )}
-                  <img
-                    className="w-48 h-48 rounded-full"
-                    src={profile.avatarUrl || "https://picsum.photos/200"}
-                  />
-                  <p className="text-xl text-center mt-6">{profile.name}</p>
-                  <div className="h-16">
-                    <p className="text-base text-gray-400 text-center mt-2 overflow-hidden line-clamp-2">
-                      {profile.bio}
-                    </p>
                   </div>
-                  <p className="text-pink-600 text-sm font-medium text-center mt-auto">
-                    <FaUsers className="inline-block mr-2" />
-                    {profile.stats.totalFollowers} followers
-                  </p>
                 </div>
-              </Link>
             ))}
           </div>
         </div>
