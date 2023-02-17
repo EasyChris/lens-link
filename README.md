@@ -1,3 +1,13 @@
+# Introduction
+LensLink.xyz is a blockchain-based social business card platform that uses the Lens protocol as a data source to showcase your social business card. By using this platform, you can create a blockchain-based social business card, allowing others to better understand you and your business.
+
+---
+
+LensLink.xyz是一个基于区块链技术的社交名片平台，它使用Lens协议作为数据源来展现你的社交名片。通过使用这个平台，你可以创建一个基于区块链的社交名片，使得其他人可以更好地了解你和你的业务。
+
+
+---
+
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
 ## Getting Started
