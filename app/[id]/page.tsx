@@ -192,20 +192,25 @@ export default function Profile() {
           </div>
           <div className="mb-6">
             {profile.attributes.map((attribute, index) => (
-              <a
-                key={index}
-                href={attribute.link}
-                target="_blank"
-                rel="noreferrer"
-                className="flex items-center mb-4"
-              >
-                <div className="w-8 h-8 mr-4 flex items-center justify-center">
-                  {attribute.icon === "RiCameraLensFill" && <RiCameraLensFill size={24} className="text-gray-500" />}
-                  {attribute.icon === "FaTwitter" && <FaTwitter size={24} className="text-gray-500" />}
-                  {attribute.icon === "FaBlog" && <FaBlog size={24} className="text-gray-500" />}
-                </div>
-                <div className="font-medium">{attribute.value}</div>
-              </a>
+             <div className="bg-gray-100 px-4 py-2 rounded-md mb-4 d-hover">
+             <a
+               key={index}
+               href={attribute.link}
+               target="_blank"
+               rel="noreferrer"
+               className="flex items-center"
+               style={{ color: '#333', textDecoration: 'none' }}
+             >
+               <div className="w-8 h-8 mr-4 flex items-center justify-center">
+                 {attribute.icon === "RiCameraLensFill" && <RiCameraLensFill size={24} className="text-gray-500" />}
+                 {attribute.icon === "FaTwitter" && <FaTwitter size={24} className="text-gray-500" />}
+                 {attribute.icon === "FaBlog" && <FaBlog size={24} className="text-gray-500" />}
+               </div>
+               <div className="font-medium">{attribute.value}</div>
+             </a>
+           </div>
+            
+             
             ))}
           </div>
 
