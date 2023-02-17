@@ -8,3 +8,11 @@
 .text-base:after {
   content: "...";
 }
+
+header {
+  font-size: 2rem; /* 2rem是一个示例值，可以根据实际需要进行调整 */
+}
+
+header {
+  color: white;
+}
